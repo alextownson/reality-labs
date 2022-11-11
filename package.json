@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "gsap": "^3.11.3",
-    "scrollmagic": "^2.0.8",
     "three": "^0.146.0"
   }
 }

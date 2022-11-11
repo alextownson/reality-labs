@@ -1,20 +1,17 @@
     import './style.css'
-    // import * as ScrollMagic from "scrollmagic";
-    // import "scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators";
-    // import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
     import {gsap} from 'gsap';
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     import * as THREE from 'three';
     import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
     import { Scene } from 'three';
 
-
-    // Scene 1 - intro
-
+    const bg = document.querySelector("#background");
     const introContainer = document.querySelector("#introContainer");
     const container = document.querySelector("#headsetContainer");
+    const metaContainer  = document.querySelector("#metaContainer");
     const RLText = document.querySelector("#text");
 
+    // Scene 1 - intro
 
     gsap.registerPlugin(ScrollTrigger);
     gsap.to(RLText, {
@@ -22,7 +19,6 @@
             trigger: introContainer,
             start: "top top",
             end: "+=800px",
-            markers: true,
             scrub: 1,
         },
         rotation: 360
@@ -82,11 +78,10 @@
                 start: "top top",
                 pin: true,
                 end: "+=500px",
-                markers: true,
                 scrub: 1,
             },
             x: 3,
-            z: -3.15
+            z: -3.2
           });
 
         gsap.to(camera.position, {
@@ -94,23 +89,40 @@
                 trigger: container,
                 start: "top top",
                 end: "+=500px",
-                markers: true,
                 scrub: 1,
             },
-            z: -1.7
-          });
+            z: -1.9
+        });
 
-          const canvas = document.querySelector("canvas")
-          gsap.to(canvas, {
+        gsap.to(container, {
             scrollTrigger: {
                 trigger: container,
-                start: "+=10px",
-                end: "+=10px",
-                markers: true,
+                start: "+=1px",
+                end: "+=99999",
                 scrub: 1,
+                toggleClass: "hidden",
             },
-            opacity: 0
-          });
+        });
+
+        gsap.to(bg, {
+            scrollTrigger: {
+                trigger: bg,
+                start: "+=1400px",
+                end: "+=99999",
+                scrub: 1,
+                toggleClass: "blue",
+            },
+        }); 
+
+        gsap.to(metaContainer, {
+            scrollTrigger: {
+                trigger: metaContainer,
+                start: "+=1px",
+                end: "+=99999",
+                scrub: 1,
+                toggleClass: "show",
+            },
+        });
     
     }
 
@@ -129,7 +141,37 @@
 
     window.addEventListener("resize", onWindowResize);
 
-    // scene 3 - purchase oculus 
+    // scene 3 - metaverse
+
+    const button = document.querySelector('button'); 
+    const audio = new Audio('./meta.mp3');
+    
+    // function addEye() {
+    //     eye = document.querySelector('.eye');
+    //     UIgroup.appendChild(eye);
+    //     eye.style.left = Math.random() * 100 + 'vw';
+    //     eye.style.top = Math.random() * 100 + 'vh';
+    // }
+
+    // document.addEventListener('mousemove', (e) => {
+    //     let ball = document.getElementsByClassName('ball'), mouseX, mouseY;
+    //     for (var i = 0; i < ball.length; i++) {
+    //         mouseX = (ball[i].getBoundingClientRect().left); 
+    //         mouseY = (ball[i].getBoundingClientRect().top);
+    //         let radianDegrees = Math.atan2(e.pageX - mouseX, e.pageY - mouseY);
+    //         let rotationDegrees = (radianDegrees * (180/ Math.PI) * -1);
+    //         ball[i].style.transform = `translate(-50%, -50%) rotate(${rotationDegrees}deg)`
+    //     } 
+    // })
+
+    // setInterval(addEye(), 100)
+
+    button.addEventListener('click', () => {
+        cancelAnimationFrame(animate);
+        const UIgroup = document.querySelector('#UIgroup').remove();
+        audio.play();    
+    });
+
 
 
 

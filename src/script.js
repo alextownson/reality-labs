@@ -2,8 +2,7 @@
     import {gsap} from 'gsap';
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     import * as THREE from 'three';
-    import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
-    import { Scene } from 'three';
+    import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 
     const bg = document.querySelector("#background");
     const introContainer = document.querySelector("#introContainer");
@@ -65,7 +64,7 @@
 
         //Load Model
         let loader = new GLTFLoader();
-        loader.load("./headset/scene.gltf", function(gltf) {
+        loader.load("headset/scene.gltf", function(gltf) {
             hscontainer.add(gltf.scene);
             animate();
         });
@@ -144,7 +143,7 @@
     // scene 3 - metaverse
 
     const button = document.querySelector('button'); 
-    const audio = new Audio('./meta.mp3');
+    // const audio = new Audio('./meta.mp3');
     
     // function addEye() {
     //     eye = document.querySelector('.eye');
@@ -169,7 +168,7 @@
     button.addEventListener('click', () => {
         cancelAnimationFrame(animate);
         const UIgroup = document.querySelector('#UIgroup').remove();
-        audio.play();    
+        // audio.play();    
     });
 
 

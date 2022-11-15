@@ -136,7 +136,7 @@ let date1, date2, date3, date4, date5, date6, date7, date8, date9;
 
 const fontLoader = new FontLoader()
 fontLoader.load(
-    '/fonts/helvetiker_regular.typeface.json',
+    'fonts/helvetiker_regular.typeface.json',
     (font) =>
     {
         const textGeometry1 = new TextGeometry(
@@ -415,9 +415,9 @@ function history() {
     ScrollTrigger.disable()
     container.style.opacity = 1
     container.style.cursor = 'grab'
-    camera.position.set(0, 0, 35)
     controls.enabled = true
     controls.enableDamping = true
+    camera.position.set(0, 0, 35)
     scene.add(data)
     scene.add(date1)
     scene.add(date2)

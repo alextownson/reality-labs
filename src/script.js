@@ -1,4 +1,5 @@
 import './style.css'
+// importing all the dependencies 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import * as THREE from 'three'
@@ -7,6 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 
+// importing elements 
 const bg = document.querySelector("#background")
 const introContainer = document.querySelector("#introContainer")
 const container = document.querySelector("#headsetContainer")
@@ -21,6 +23,7 @@ const iframe = document.querySelector('iframe')
  * SCENE 1 INTRO
  */
 
+// using gsap scroll trigger to make the text of the logo spin on scroll 
 // GSAP Animation
 gsap.registerPlugin(ScrollTrigger)
 gsap.to(RLText, {
@@ -46,7 +49,7 @@ const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 1000)
 camera.position.set(0, 0, 0)
 
-// Controls
+// Controls these are for the history section so they are set to false for now
 const controls = new OrbitControls(camera, container)
 controls.mouseButtons = {
 	LEFT: THREE.MOUSE.PAN,
@@ -73,10 +76,16 @@ loader.load("headset/scene.gltf", function(gltf) {
     animate()
 });
 
+// Set model initial position
+hscontainer.position.set(0, 0, -2)
+
 /**
  * History
  */
+// This is where I am drawing all the dates and images onto the canvas for the history section
+// I think there is a much easier way to do this, possibly with a three js text library but this was the only solution I could come up with in a reasonable amount of time 
 
+// images as textures 
 const textureLoader = new THREE.TextureLoader()
 const texture1 = textureLoader.load('assets/2014.png')
 const texture2 = textureLoader.load('assets/2015.png')
@@ -88,6 +97,7 @@ const texture7 = textureLoader.load('assets/2020.png')
 const texture8 = textureLoader.load('assets/2021.png')
 const texture9 = textureLoader.load('assets/2022.png')
 
+// planes 
 const geometry = new THREE.PlaneGeometry( 16, 10 );
 const planeMaterial1 = new THREE.MeshBasicMaterial( {map: texture1, side: THREE.DoubleSide} );
 const plane1 = new THREE.Mesh( geometry, planeMaterial1 );
@@ -116,12 +126,11 @@ const planeMaterial9 = new THREE.MeshBasicMaterial( {map: texture9, side: THREE.
 const plane9 = new THREE.Mesh( geometry, planeMaterial9 );
 plane9.position.x = 160
 
-
-
+// create a group for all of the images
 const data = new THREE.Group()
 data.add(plane1, plane2, plane3, plane4, plane5, plane6, plane7, plane8, plane9)
 
-
+// create all the text
 const textMaterial = new THREE.MeshNormalMaterial()
 let date1, date2, date3, date4, date5, date6, date7, date8, date9;
 
@@ -303,9 +312,6 @@ fontLoader.load(
     }
 )
 
-// Set model initial position
-hscontainer.position.set(0, 0, -2)
-
 //Renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
 renderer.setSize(container.clientWidth, container.clientHeight)
@@ -315,6 +321,7 @@ renderer.setPixelRatio(window.devicePixelRatio)
 container.appendChild(renderer.domElement)
 
 // GSAP Animations
+// rotate the headset
 gsap.to(hscontainer.rotation, {
     scrollTrigger: {
         trigger: container,
@@ -327,7 +334,7 @@ gsap.to(hscontainer.rotation, {
     x: Math.PI,
     z: Math.PI * -1
     })
-
+// move the camera closer
 gsap.to(camera.position, {
     scrollTrigger: {
         trigger: container,
@@ -348,7 +355,7 @@ gsap.to(camera.position, {
     z: -1.8
 })
 
-
+// blur and move UI element
 ScrollTrigger.create({
         trigger: metaContainer,
         start: "top",
@@ -378,7 +385,7 @@ ScrollTrigger.create({
         },
 })
 
-
+// If window is resized 
 function onWindowResize() {
     camera.aspect = container.clientWidth / container.clientHeight
     camera.updateProjectionMatrix()
@@ -394,16 +401,17 @@ window.addEventListener("resize", onWindowResize)
  * SCENE 3 - METAVERSE
  */
 
+// on click the continue button
 const button = document.querySelector('#button'); 
 button.addEventListener('click', () => {
     introContainer.remove()
     metaContainer.remove()
     scene.remove(hscontainer)
-    world()
+    history()
 })
 
-
-function world() {
+// add all the text, images and links to the scene
+function history() {
     ScrollTrigger.disable()
     container.style.opacity = 1
     container.style.cursor = 'grab'
@@ -423,6 +431,7 @@ function world() {
     links.style.display = 'flex'
 }
 
+// animate the canvas
 function animate() {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)

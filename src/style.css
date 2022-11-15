@@ -152,3 +152,18 @@ iframe {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* PHONES */
+/* This isn't working - not sure why */
+
+@media screen and (max-width: 767px) {
+    circle {
+        width: 300px;
+        height: 300px;
+    }
+    
+    iframe {
+        width: 560px;
+        height: 315px;
+    }
+}

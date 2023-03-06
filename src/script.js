@@ -71,7 +71,7 @@ scene.add( hscontainer )
 
 //Load Model
 let loader = new GLTFLoader()
-loader.load("headset/scene.gltf", function(gltf) {
+loader.load("headset/oculus_quest_2.glb", function(gltf) {
     hscontainer.add(gltf.scene)
     animate()
 });

@@ -42,6 +42,8 @@ gsap.to(RLText, {
  * SCENE 2 OCULUS
  */
 
+
+
 //Create scene
 const scene = new THREE.Scene()
 
@@ -78,6 +80,8 @@ loader.load("headset/oculus_quest_2.glb", function(gltf) {
 
 // Set model initial position
 hscontainer.position.set(0, 0, -2)
+
+
 
 /**
  * History
@@ -407,6 +411,7 @@ button.addEventListener('click', () => {
     introContainer.remove()
     metaContainer.remove()
     scene.remove(hscontainer)
+    document.querySelector('body').style.overflowY = 'hidden'
     history()
 })
 
